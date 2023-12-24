@@ -1,0 +1,8 @@
+.openapi-generator-ignore
+README.md
+pom.xml
+src/main/java/com/accenture/controller/ApiUtil.java
+src/main/java/com/accenture/controller/UserConsumerApi.java
+src/main/java/com/accenture/controller/UserProducerApi.java
+src/main/java/com/accenture/dto/ModelApiResponse.java
+src/main/java/com/accenture/dto/UserDto.java

@@ -1,0 +1,15 @@
+com\accenture\consumer\entity\UserConsumerEntity.class
+com\accenture\controller\UserProducerApi.class
+com\accenture\consumer\repository\UserConsumerRepository.class
+com\accenture\consumer\controller\ConsumerController.class
+com\accenture\consumer\exception\dto\ErrorResponse.class
+com\accenture\consumer\exception\UserBussinessException.class
+com\accenture\controller\ApiUtil.class
+com\accenture\consumer\converter\UserConsumerConverter.class
+com\accenture\consumer\exception\ConsumerAppExceptionHandler.class
+com\accenture\consumer\process\UserConsumerProcess.class
+com\accenture\consumer\service\UserConsumerService.class
+com\accenture\consumer\ConsumerApplication.class
+com\accenture\dto\UserDto.class
+com\accenture\controller\UserConsumerApi.class
+com\accenture\dto\ModelApiResponse.class

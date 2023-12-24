@@ -1,0 +1,314 @@
+openapi: 3.0.3
+info:
+  title: Swagger Producerstore - OpenAPI 3.0
+  description: |-
+    This is producer consumer api contract documention
+  version: 1.0.11
+
+servers:
+  - url: https://Producerstore3.swagger.io/api/v3
+tags:
+  - name: user-consumer
+    description: Operations and access consumer app details
+  - name: user-producer
+    description: Operations and access producer app details
+paths:
+  /v1/user-consumer:
+    post:
+      tags:
+        - user-consumer
+      summary: Consumes/saves POST req body to DB 
+      description: Consumes/saves POST req body to DB
+      operationId: consumeUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          
+  /v1/user-consumer/all:
+    get:
+      tags:
+        - user-consumer
+      summary: Returns all consumed Users
+      description: Returns all consumed Users
+      operationId: getAllConsumedUsers
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+
+  /v1/user-consumer/{userId}:
+    get:
+      tags:
+        - user-consumer
+      summary: Find consumed user by ID
+      description: Find consumed user by ID.
+      operationId: getConsumedUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to be fetched
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+    put:
+      tags:
+        - user-consumer
+      summary: Update consumed user
+      description: Update consumed user.
+      operationId: updateConsumedUserById
+      parameters:
+        - name: userId
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          
+    delete:
+      tags:
+        - user-consumer
+      summary: Delete consumed user by ID
+      description: Delete consumed user by ID
+      operationId: deleteConsumedUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          
+  /v1/user-producer:
+    post:
+      tags:
+        - user-producer
+      summary: Create user in master DB 
+      description: Create user in master DB.
+      operationId: createUser
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+                
+  /v1/user-producer/createWithList:
+    post:
+      tags:
+        - user-producer
+      summary: Creates list of users with given input array
+      description: Creates list of users with given input array
+      operationId: createUsersWithListInput
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/UserDto'
+      responses:
+        '201':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+  /v1/user-producer/all:
+    get:
+      tags:
+        - user-producer
+      summary: Returns all Users
+      description: Returns all Users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+
+  /v1/user-producer/{userId}:
+    get:
+      tags:
+        - user-producer
+      summary: Find user by ID
+      description: Find user by ID.
+      operationId: getUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of user to be fetched
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'          
+    put:
+      tags:
+        - user-producer
+      summary: Update user
+      description: Update user.
+      operationId: updateUserById
+      parameters:
+        - name: userId
+          in: path
+          description: name that need to be deleted
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Update an existent user in the store
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          
+    delete:
+      tags:
+        - user-producer
+      summary: Delete user by ID
+      description: Delete user by ID
+      operationId: deleteUserById
+      parameters:
+        - name: userId
+          in: path
+          description: ID of the user to be deleted
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+
+components:
+  schemas:
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 30
+          x-error-messages:
+            minLength: "FirstName must be atleast 1 cbaracters."
+            maxLength: "FirstName must be atleast 30 cbaracters."
+          example: James
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 30
+          x-error-messages:
+            minLength: "LastName must be atleast 1 cbaracters."
+            maxLength: "LastName must be atleast 30 cbaracters."
+          example: Bond
+        email:
+          type: string
+          minLength: 1
+          maxLength: 30
+          x-error-messages:
+            minLength: "lastName must be atleast 1 cbaracters."
+            maxLength: "lastName must be atleast 30 cbaracters."
+          example: james@gmail.com
+        phone:
+          type: string
+          minLength: 1
+          maxLength: 10
+          x-error-messages:
+            minLength: "Phone must be atleast 1 cbaracters."
+            maxLength: "Phone must be atleast 10 cbaracters."
+          example: '12345'
+        department:
+          type: string
+          minLength: 1
+          maxLength: 10
+          x-error-messages:
+            minLength: "Department must be atleast 1 cbaracters."
+            maxLength: "Department must be atleast 10 cbaracters."
+          example: 'IT'
+      required:
+      - firstName
+      - lastName
+      - email
+      - phone
+    
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+
